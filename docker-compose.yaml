@@ -1,0 +1,94 @@
+version: '3.9'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.9.13-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q status
+      interval: 6s
+      timeout: 30s
+      retries: 3
+
+  authorization_db:
+    image: postgres
+    container_name: 'authorization_db'
+    restart: on-failure
+    environment:
+      TZ: "Asia/Almaty"
+      POSTGRES_PASSWORD: qwerty123
+      POSTGRES_DB: authorization-db
+      POSTGRES_USER: authorization
+    ports:
+      - "5433:5432"
+  authorization:
+    image: authorization:0.0.1-SNAPSHOT
+    container_name: 'authorization'
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8081:8081"
+
+  user-manager-db:
+    image: postgres
+    container_name: 'user-manager-db'
+    restart: on-failure
+    environment:
+      TZ: "Asia/Almaty"
+      POSTGRES_PASSWORD: qwerty123
+      POSTGRES_DB: user-manager-db
+      POSTGRES_USER: userManager
+    ports:
+      - "5434:5432"
+  user-manager:
+    image: user-manager:0.0.1-SNAPSHOT
+    container_name: 'user-manager'
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+        - "8082:8082"
+
+  organization-db:
+    image: postgres
+    container_name: 'organization_db'
+    restart: on-failure
+    environment:
+      TZ: "Asia/Almaty"
+      POSTGRES_PASSWORD: qwerty123
+      POSTGRES_DB: organization-db
+      POSTGRES_USER: organization
+    ports:
+      - "5435:5432"
+  organization:
+    image: organization:0.0.1-SNAPSHOT
+    container_name: 'organization'
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+
+  task-manager-db:
+    image: postgres
+    container_name: 'task-manager-db'
+    restart: on-failure
+    environment:
+      TZ: "Asia/Almaty"
+      POSTGRES_PASSWORD: qwerty123
+      POSTGRES_DB: task-manager-db
+      POSTGRES_USER: task-manager
+    ports:
+      - "5436:5432"
+  task-manager:
+    image: task-manager:0.0.1-SNAPSHOT
+    container_name: 'task-manager'
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8084:8084"
