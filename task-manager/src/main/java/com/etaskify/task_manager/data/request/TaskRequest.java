@@ -14,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskRequest {
+
     private String title;
     private String description;
     private String status;

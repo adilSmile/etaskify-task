@@ -1,7 +1,5 @@
 package com.etaskify.organization.controller;
 
-import lombok.AllArgsConstructor;
-
 import com.etaskify.organization.data.request.OrganizationRequestBody;
 import com.etaskify.organization.service.OrganizationService;
 
@@ -13,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/admin/organization")
 public class OrganizationController {
-    private OrganizationService organizationService;
+
+    private final OrganizationService organizationService;
+
+    public OrganizationController(final OrganizationService organizationService) {
+        this.organizationService = organizationService;
+    }
 
     @PostMapping()
     public ResponseEntity<Void> create(@RequestBody OrganizationRequestBody organizationRequestBody){

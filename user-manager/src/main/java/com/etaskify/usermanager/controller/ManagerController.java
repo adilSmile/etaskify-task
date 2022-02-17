@@ -1,6 +1,5 @@
 package com.etaskify.usermanager.controller;
 
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +15,13 @@ import com.etaskify.usermanager.service.ManagerService;
 
 @RestController
 @RequestMapping("/api")
-@AllArgsConstructor
 public class ManagerController {
 
-  private ManagerService managerService;
+  private final ManagerService managerService;
+
+  public ManagerController(final ManagerService managerService) {
+    this.managerService = managerService;
+  }
 
   @PostMapping("/createUser")
   public ResponseEntity<Void> createUser(

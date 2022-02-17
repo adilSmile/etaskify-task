@@ -9,6 +9,7 @@ import com.etaskify.authorization.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
+
   void create(UserRequest userRequest);
   User getByEmail(String email);
   Boolean verifyOrganizationUsers(UserData userData);

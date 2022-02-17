@@ -1,5 +1,8 @@
 package com.etaskify.organization.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,55 +17,31 @@ import java.util.UUID;
 @Entity
 @Table(name = "organizations")
 public class Organization {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Getter
+    @Setter
     private UUID id;
+
     @Column(name = "created_at")
     private OffsetDateTime createdAt = OffsetDateTime.now();
+
+    @Getter
+    @Setter
     private String name;
+
+    @Getter
+    @Setter
     private String phone;
+
+    @Getter
+    @Setter
     private String address;
+
     @OneToOne
     @JoinColumn(name = "admin_id", referencedColumnName = "id")
+    @Getter
+    @Setter
     private Admin admin;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Admin getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
-    }
 }

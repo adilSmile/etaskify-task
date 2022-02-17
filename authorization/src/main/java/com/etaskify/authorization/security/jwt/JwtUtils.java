@@ -16,6 +16,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtUtils {
+
   @Value("${token.expiration}")
   private Long expiration;
 

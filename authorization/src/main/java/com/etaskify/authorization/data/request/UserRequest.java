@@ -12,8 +12,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequest {
+
   private String name;
   private String surname;
   private String email;
   private UUID organizationId;
+
 }

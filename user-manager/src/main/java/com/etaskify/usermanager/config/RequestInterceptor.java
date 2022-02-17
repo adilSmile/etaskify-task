@@ -1,6 +1,5 @@
 package com.etaskify.usermanager.config;
 
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -12,9 +11,13 @@ import com.etaskify.usermanager.exception.AccessDeniedException;
 import com.etaskify.usermanager.service.MessageService;
 
 @Component
-@AllArgsConstructor
 public class RequestInterceptor implements HandlerInterceptor {
-  private MessageService messageService;
+
+  private final MessageService messageService;
+
+  public RequestInterceptor(final MessageService messageService) {
+    this.messageService = messageService;
+  }
 
   private static final String AUTHORIZATION = "Authorization";
   private static final String BEARER = "Bearer";

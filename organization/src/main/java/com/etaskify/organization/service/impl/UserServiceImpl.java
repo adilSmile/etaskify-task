@@ -1,6 +1,5 @@
 package com.etaskify.organization.service.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,11 +18,18 @@ import com.etaskify.organization.service.AdminService;
 import com.etaskify.organization.service.UserService;
 
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private AdminService adminService;
-    private AuthenticationManager authenticationManager;
-    private JwtUtils jwtUtils;
+
+    private final AdminService adminService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
+
+    public UserServiceImpl(final AdminService adminService,
+        final AuthenticationManager authenticationManager, final JwtUtils jwtUtils) {
+        this.adminService = adminService;
+        this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

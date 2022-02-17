@@ -1,6 +1,5 @@
 package com.etaskify.authorization.service.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
 import java.util.ArrayList;
@@ -27,12 +26,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-  private UserRepository userRepository;
-  private AuthenticationManager authenticationManager;
-  private JwtUtils jwtUtils;
-  private PasswordEncoder passwordEncoder;
+
+  private final UserRepository userRepository;
+  private final AuthenticationManager authenticationManager;
+  private final JwtUtils jwtUtils;
+  private final PasswordEncoder passwordEncoder;
+
+  public UserServiceImpl(final UserRepository userRepository,
+      final AuthenticationManager authenticationManager, final JwtUtils jwtUtils,
+      final PasswordEncoder passwordEncoder) {
+    this.userRepository = userRepository;
+    this.authenticationManager = authenticationManager;
+    this.jwtUtils = jwtUtils;
+    this.passwordEncoder = passwordEncoder;
+  }
+
   private static final String DEFAULT_PASSWORD = "Aa123456";
   private static final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
 

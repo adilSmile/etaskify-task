@@ -1,6 +1,5 @@
 package com.etaskify.task_manager.controller;
 
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +19,13 @@ import com.etaskify.task_manager.service.TaskService;
 
 @RestController
 @RequestMapping("/api/task")
-@AllArgsConstructor
 public class TaskController {
 
-    private TaskService taskService;
+    private final TaskService taskService;
+
+    public TaskController(final TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @PostMapping
     ResponseEntity<Void> create(@RequestAttribute UUID userId, @RequestBody TaskRequest taskRequest){

@@ -1,6 +1,5 @@
 package com.etaskify.organization.service.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,10 +14,16 @@ import com.etaskify.organization.repository.AdminRepository;
 import com.etaskify.organization.service.AdminService;
 
 @Service
-@AllArgsConstructor
 public class AdminServiceImpl implements AdminService {
-    private AdminRepository adminRepository;
-    private PasswordEncoder passwordEncoder;
+
+    private final AdminRepository adminRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public AdminServiceImpl(final AdminRepository adminRepository,
+        final PasswordEncoder passwordEncoder) {
+        this.adminRepository = adminRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
     private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}$";

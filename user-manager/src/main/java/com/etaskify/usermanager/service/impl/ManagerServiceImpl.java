@@ -1,6 +1,5 @@
 package com.etaskify.usermanager.service.impl;
 
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -11,10 +10,13 @@ import com.etaskify.usermanager.service.ManagerService;
 import com.etaskify.usermanager.service.MessageService;
 
 @Service
-@AllArgsConstructor
 public class ManagerServiceImpl implements ManagerService {
 
-    private MessageService messageService;
+    private final MessageService messageService;
+
+    public ManagerServiceImpl(final MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     @Override
     public void createUser(NewUserRequest newUserRequest, UUID organizationId) {

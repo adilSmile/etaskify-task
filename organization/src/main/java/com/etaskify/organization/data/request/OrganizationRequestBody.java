@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrganizationRequestBody {
+
     private String name;
     private String phone;
     private String address;

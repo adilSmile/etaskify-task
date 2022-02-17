@@ -13,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserData {
+
     private UUID creatorId;
     private Set<UUID> assignees;
 }

@@ -4,7 +4,6 @@ import com.etaskify.task_manager.data.request.UserData;
 import com.etaskify.task_manager.service.MessageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Message;
@@ -17,14 +16,25 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 public class MessageServiceImpl implements MessageService {
-    private RabbitTemplate rabbitTemplate;
-    private ObjectMapper objectMapper;
+
+    private final RabbitTemplate rabbitTemplate;
+
+    private final ObjectMapper objectMapper;
+
     @Qualifier("authExchange")
-    private DirectExchange authExchange;
+    private final DirectExchange authExchange;
+
     @Qualifier("usersExchange")
-    private DirectExchange usersExchange;
+    private final DirectExchange usersExchange;
+
+    public MessageServiceImpl(final RabbitTemplate rabbitTemplate, final ObjectMapper objectMapper,
+        final DirectExchange authExchange, final DirectExchange usersExchange) {
+        this.rabbitTemplate = rabbitTemplate;
+        this.objectMapper = objectMapper;
+        this.authExchange = authExchange;
+        this.usersExchange = usersExchange;
+    }
 
     @Override
     public UUID getUserIdByToken(@NonNull String token) {

@@ -1,6 +1,5 @@
 package com.etaskify.organization.service.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
@@ -13,12 +12,17 @@ import com.etaskify.organization.service.MessageService;
 import com.etaskify.organization.service.OrganizationService;
 
 @Service
-@AllArgsConstructor
 @Log4j2
 public class MessageServiceImpl implements MessageService {
 
-    private JwtUtils jwtUtils;
-    private OrganizationService organizationService;
+    private final JwtUtils jwtUtils;
+    private final OrganizationService organizationService;
+
+    public MessageServiceImpl(final JwtUtils jwtUtils,
+        final OrganizationService organizationService) {
+        this.jwtUtils = jwtUtils;
+        this.organizationService = organizationService;
+    }
 
     @Override
     @RabbitListener(queues = "${rabbitmq.queue.name}")

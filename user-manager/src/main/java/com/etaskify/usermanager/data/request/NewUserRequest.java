@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewUserRequest {
+
     private String name;
     private String surname;
     private String email;

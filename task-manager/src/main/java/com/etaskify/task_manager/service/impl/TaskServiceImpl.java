@@ -23,11 +23,18 @@ import com.etaskify.task_manager.service.MessageService;
 import com.etaskify.task_manager.service.TaskService;
 
 @Service
-@AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
-    private MessageService messageService;
-    private TaskRepository taskRepository;
-    private AssigneeRepository assigneeRepository;
+
+    private final MessageService messageService;
+    private final TaskRepository taskRepository;
+    private final AssigneeRepository assigneeRepository;
+
+    public TaskServiceImpl(final MessageService messageService, final TaskRepository taskRepository,
+        final AssigneeRepository assigneeRepository) {
+        this.messageService = messageService;
+        this.taskRepository = taskRepository;
+        this.assigneeRepository = assigneeRepository;
+    }
 
     @Override
     @Transactional

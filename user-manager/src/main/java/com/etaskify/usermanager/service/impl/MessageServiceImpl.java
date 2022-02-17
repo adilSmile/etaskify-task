@@ -4,7 +4,6 @@ import com.etaskify.usermanager.data.request.UserRequest;
 import com.etaskify.usermanager.service.MessageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
@@ -16,12 +15,20 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 public class MessageServiceImpl implements MessageService {
-    private RabbitTemplate rabbitTemplate;
-    private DirectExchange directExchange;
-    private ObjectMapper objectMapper;
-    private Queue queue;
+
+    private final RabbitTemplate rabbitTemplate;
+    private final DirectExchange directExchange;
+    private final ObjectMapper objectMapper;
+    private final Queue queue;
+
+    public MessageServiceImpl(final RabbitTemplate rabbitTemplate,
+        final DirectExchange directExchange, final ObjectMapper objectMapper, final Queue queue) {
+        this.rabbitTemplate = rabbitTemplate;
+        this.directExchange = directExchange;
+        this.objectMapper = objectMapper;
+        this.queue = queue;
+    }
 
     @Value("${rabbitmq.routing.key}")
     private String routingKey;

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MessageConfig {
+
     @Value("${rabbitmq.auth.exchange.name}")
     private String authExchangeName;
 

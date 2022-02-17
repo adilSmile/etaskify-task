@@ -1,6 +1,5 @@
 package com.etaskify.authorization.service.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Map;
@@ -17,11 +16,16 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
 @Log4j2
 public class MessageServiceImpl implements MessageService {
-  private JwtUtils jwtUtils;
-  private UserService userService;
+
+  private final JwtUtils jwtUtils;
+  private final UserService userService;
+
+  public MessageServiceImpl(final JwtUtils jwtUtils, final UserService userService) {
+    this.jwtUtils = jwtUtils;
+    this.userService = userService;
+  }
 
   private static final String TOKEN = "token";
 
